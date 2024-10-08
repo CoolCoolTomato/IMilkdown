@@ -1,5 +1,6 @@
 from sdk.sdk import *
 from flask import Flask, request, jsonify
+from model import Node
 
 app = Flask(__name__)
 
@@ -105,6 +106,19 @@ def api_delete_folder():
         return jsonify({'message': 'Folder deleted successfully'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+
+@app.route('/get_nodes')
+def api_get_nodes():
+    data = request.json
+    path = data.get('path')
+
+    root_node = Node(path=path, name=path.split("/")[-1], is_folder=True)
+    try:
+        root_node.build_node()
+        return jsonify({'nodes': root_node}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
 
 if __name__ == '__main__':
     app.run(debug=True)

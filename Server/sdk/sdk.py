@@ -10,10 +10,10 @@ def write_file(path, content):
         file.write(content)
 
 def get_files(path):
-    return [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    return [os.path.abspath(os.path.join(path, f)) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
 
 def get_folders(path):
-    return [f for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
+    return [os.path.abspath(os.path.join(path, f)) for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
 
 def create_file(path):
     with open(path, 'w', encoding='utf-8') as file:

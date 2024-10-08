@@ -23,6 +23,8 @@ export default {
 <style>
 #main {
   width: 100%;
-  height: auto;
+  height: 100vh;
+  background: #EEEEEE;
 }
+
 </style>
