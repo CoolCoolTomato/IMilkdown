@@ -4,8 +4,8 @@ function get_nodes(data) {
   return apiClient.post("/get_nodes", data).then(handleResponse).catch(handleError)
 }
 
-const fileAPI = {
+const ndoeApi = {
   get_nodes
 }
 
-export default fileAPI
+export default ndoeApi

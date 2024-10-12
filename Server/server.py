@@ -1,9 +1,10 @@
 from sdk.sdk import *
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from model import Node
 
 app = Flask(__name__)
-
+CORS(app)
 @app.route('/read_file', methods=['POST'])
 def api_read_file():
     data = request.json
@@ -107,18 +108,18 @@ def api_delete_folder():
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
-@app.route('/get_nodes')
+@app.route('/get_nodes', methods=['POST'])
 def api_get_nodes():
     data = request.json
     path = data.get('path')
 
     root_node = Node(path=path, name=path.split("/")[-1], is_folder=True)
+
     try:
         root_node.build_node()
-        return jsonify({'nodes': root_node}), 200
+        return jsonify({'nodes': root_node.to_dict()}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
-
 
 if __name__ == '__main__':
     app.run(debug=True)

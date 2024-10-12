@@ -24,7 +24,7 @@ function delete_file(data) {
   return apiClient.post("/delete_file", data).then(handleResponse).catch(handleError)
 }
 
-const fileAPI = {
+const fileApi = {
   read_file,
   write_file,
   get_files,
@@ -33,4 +33,4 @@ const fileAPI = {
   delete_file
 }
 
-export default fileAPI
+export default fileApi

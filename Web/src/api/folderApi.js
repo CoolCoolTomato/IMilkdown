@@ -16,11 +16,11 @@ function delete_folder(data) {
   return apiClient.post("/delete_folder", data).then(handleResponse).catch(handleError)
 }
 
-const folderAPI = {
+const folderApi = {
   get_folders,
   create_folder,
   rename_folder,
   delete_folder
 }
 
-export default folderAPI
+export default folderApi
