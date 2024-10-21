@@ -8,10 +8,10 @@
         <pane>
           <div id="editor">
             <div id="text">
-              <textarea/>
+              <Codemirror @set_milkdown="set_milkdown" ref="codemirror"/>
             </div>
             <div id="markdown">
-              <Milkdown />
+              <Milkdown @set_codemirror="set_codemirror" ref="milkdown"/>
             </div>
           </div>
         </pane>
@@ -24,11 +24,13 @@
 import nodeApi from "@/api/nodeApi.js"
 import TreeView from "@/components/TreeView.vue"
 import Milkdown from "@/components/Milkdown.vue"
+import Codemirror from "@/components/CodeMirror.vue"
 import { Splitpanes, Pane } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
 
 export default {
   components: {
+    Codemirror,
     TreeView,
     Milkdown,
     Splitpanes,
@@ -36,20 +38,27 @@ export default {
   },
   data() {
     return {
-      nodes: {}
+      nodes: {},
+      editor_text: "",
+      milkdown_text: ""
     }
   },
   methods: {
     get_nodes(){
       nodeApi.get_nodes({
-        path: "W:/code/Python/Imilkdown/Server"
+        path: "C:/Users/liuqiukai/Desktop/articles"
       }).then(res => {
         this.nodes = res.nodes
-        console.log(this.nodes)
       }).catch(error => {
         console.log(error)
       })
-    }
+    },
+    set_codemirror(text) {
+      this.$refs.codemirror.set_code(text)
+    },
+    set_milkdown(text, focus) {
+      this.$refs.milkdown.set_text(text, focus)
+    },
   },
   mounted() {
     this.get_nodes()
@@ -78,6 +87,7 @@ export default {
   border: none;
   padding: 0;
   box-shadow: none;
+  font-size: 20px;
 }
 #text textarea:focus {
   border: none;
